@@ -1,0 +1,51 @@
+# JetBrains Rider & Visual Studio
+*.sln.iml
+.idea/
+*.project.json
+*.user
+*.suo
+
+# User-specific files
+*.rsuser
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+log/
+
+# Visual Studio
+.vs/
+.vscode/
+*.njsproj
+*.sln.ide
+*.vsproj
+
+# Rider
+.idea/
+
+# Secrets and environment-specific files
+**/appsettings.Development.json
+**/secrets.json
+**/launchSettings.json
+*.env
+
+# Other
+*.log
+*.lock.json
+
+# OS generated files
+.DS_Store
+._*
+Thumbs.db

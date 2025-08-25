@@ -1,0 +1,18 @@
+version: "3.4"
+services:
+  backend:
+    build: ./Backend/Backend.Api
+    image: pizza-backend-image
+    ports:
+      - "5910:8080"
+
+  frontend:
+    build: ./Frontend/Frontend.Web
+    image: pizza-frontend-image
+    depends_on:
+      - backend
+    environment:
+      - BackendUrl=http://backend:8080
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5902:8080"

@@ -1,0 +1,28 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Tom</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<h2>Pizza List</h2>
+@if (Model.Pizzas is not null)
+{
+    <ul>
+    @foreach (var pizza in Model.Pizzas)
+    {
+        <li>
+            <strong>@pizza.Name</strong> (ID: @pizza.Id)<br />
+            Toppings: @string.Join(", ", pizza.Toppings ?? Array.Empty<string>())
+        </li>
+    }
+    </ul>
+}
+else
+{
+    <p>Loading...</p>
+}
