@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Gomoku 后端端口一键测试</title>
+</head>
+<body>
+    <h2>Gomoku 后端端口一键测试</h2>
+    <div id="result"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@microsoft/signalr@7.0.5/dist/browser/signalr.min.js"></script>
+    <script>
+    const result = document.getElementById('result');
+
+    // 测试 SignalR 连接
+    let signalrStatus = '❌';
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:5281/gamehub")
+        .build();
+
+    connection.start()
+        .then(() => {
+            signalrStatus = '✅';
+            result.innerHTML += `<p>SignalR 连接：<b style="color:green">成功</b></p>`;
+        })
+        .catch(err => {
+            result.innerHTML += `<p>SignalR 连接：<b style="color:red">失败</b> (${err})</p>`;
+        });
+
+    // 测试 GET /api/rooms
+    fetch('http://localhost:5281/api/rooms')
+        .then(r => r.json())
+        .then(data => {
+            result.innerHTML += `<p>GET /api/rooms：<b style="color:green">成功</b>，返回房间数：${data.length}</p>`;
+        })
+        .catch(err => {
+            result.innerHTML += `<p>GET /api/rooms：<b style="color:red">失败</b> (${err})</p>`;
+        });
+
+    // 测试 POST /api/rooms
+    fetch('http://localhost:5281/api/rooms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ roomName: "TestRoom", ownerNickname: "TestUser" })
+    })
+        .then(r => r.json())
+        .then(data => {
+            result.innerHTML += `<p>POST /api/rooms：<b style="color:green">成功</b>，返回：${JSON.stringify(data)}</p>`;
+        })
+        .catch(err => {
+            result.innerHTML += `<p>POST /api/rooms：<b style="color:red">失败</b> (${err})</p>`;
+        });
+    </script>
+</body>
+</html>
